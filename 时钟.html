@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		<style type="text/css">
+			*{margin: 0 auto;}
+			#a{border: 1px solid black;}
+		</style>
+	</head>
+	<body>
+		<canvas id="a" width="500" height="500"></canvas>
+		
+	</body>
+	<script type="text/javascript">
+		var oa=document.getElementById("a");
+		var at=oa.getContext("2d");
+		function fun(){
+			at.clearRect(0,0,500,500);
+			var time=new Date();
+			var ye=time.getFullYear();
+			var mo=time.getMonth();
+			var dat=time.getDate();
+			var day=time.getDay();
+			var h=time.getHours();
+			var m=time.getMinutes();
+			var s=time.getSeconds();
+			if(h>12){
+				h=h-12;
+			}
+			//画园
+			at.beginPath();
+			at.strokeStyle="aqua";
+			at.lineWidth=10;
+			at.arc(200,200,180,0,360*Math.PI/180,false);
+			at.stroke();
+			at.closePath();
+			
+	//		画小时
+	        for(var i=0;i<=12;i++){
+	        	at.save();
+		        at.beginPath();
+		        at.strokeStyle="#000000";
+		        at.lineWidth=6;
+		        at.translate(200,200);
+		        at.rotate((30*i)*Math.PI/180,false);
+		        at.moveTo(0,-145);
+		        at.lineTo(0,-170);
+		        at.stroke();
+		        at.closePath();
+		        at.restore();
+	        }
+	//      画分
+	        for(var i=0;i<=60;i++){
+	        	at.save();
+		        at.beginPath();
+		        at.strokeStyle="#000000";
+		        at.lineWidth=4;
+		        at.translate(200,200);
+		        at.rotate((6*i)*Math.PI/180,false);
+		        at.moveTo(0,-155);
+		        at.lineTo(0,-170);
+		        at.stroke();
+		        at.closePath();
+		        at.restore();
+	        }
+//	             时针
+	        at.save();
+	        at.beginPath();
+	        at.strokeStyle="blue";
+	        at.lineWidth=4;
+	        at.translate(200,200);
+	        at.rotate(h*30*Math.PI/180+30/60*m*Math.PI/180,false);
+	        at.moveTo(0,15);
+	        at.lineTo(0,-80);
+	        at.stroke();
+	        at.closePath();
+	        at.restore();
+//	              分针   
+	        at.save();
+	        at.beginPath();
+	        at.strokeStyle="#000000";
+	        at.lineWidth=4;
+	        at.translate(200,200);
+	        at.rotate(m*6*Math.PI/180,false);
+	        at.moveTo(0,15);
+	        at.lineTo(0,-110);
+	        at.stroke();
+	        at.closePath();
+	        at.restore();
+	//      画秒针
+	        at.save();
+	        at.beginPath();
+	        at.strokeStyle="red";
+	        at.lineWidth=4;
+	        at.translate(200,200);
+	        at.rotate(s*6*Math.PI/180,false);
+	        at.moveTo(0,15);
+	        at.lineTo(0,-140);
+	        at.stroke();
+	        at.closePath();
+	       
+//	        修饰园
+	        at.beginPath();
+	        at.lineWidth=4;
+	        at.strokeStyle="orange";
+	        at.fillStyle="white";
+	        at.arc(0,0,6,0,2*Math.PI,false);
+	        at.stroke();
+	        at.fill();
+	        at.closePath();
+	        
+	        at.beginPath();
+	        at.lineWidth=3;
+	        at.strokeStyle="orange";
+	        at.fillStyle="white";
+	        at.arc(0,-125,6,0,2*Math.PI,false);
+	        at.stroke();
+	        at.fill();
+	        at.closePath();
+	        at.restore();
+        }
+        fun();
+        setInterval(fun,1000);
+        
+        
+	</script>
+</html>
