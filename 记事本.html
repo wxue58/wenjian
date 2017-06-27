@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+	    <link rel="stylesheet" type="text/css" href="css/bootstrap.css"/>
+		<style type="text/css">
+			#tex{
+				resize: none;
+			}
+			th,td{
+				text-align: center;
+			}
+			.td_1{width: 10%;}
+			.td_2,.td_3{width: 45%;}
+		</style>
+	</head>
+	<body>
+		<textarea id="tex" rows="7" cols="60"></textarea><br/>
+		<button class="btn btn-success"id="cun">存储</button>
+		<button class="btn btn-success"id="du">读取</button>
+		<button class="btn btn-success"id="amend">修改</button>
+		<button class="btn btn-success"id="san">删除</button>
+		<button class="btn btn-success"id="qing">清空</button>
+		<input type="hidden"id="mykey"/>
+		<div id="txt">
+			
+		</div>
+	</body>
+	<script type="text/javascript">
+//		本地存储 localStorage
+//      会话存储 sessionStorage
+		var tex=document.getElementById("tex");
+		var cun=document.getElementById("cun");
+		var du=document.getElementById("du");
+		var amend=document.getElementById("amend");
+		var san=document.getElementById("san");
+		var qing=document.getElementById("qing");
+		var mykey=document.getElementById("mykey");
+//		存储
+		cun.onclick=function(){	
+			if(/^\s*$/g.test(tex.value)){
+				alert("不能为空!");
+			}else{
+				var key=mykey.value;
+                
+				if(key==''){
+					var key=new Date().getTime();
+				}
+				localStorage.setItem(key,tex.value);
+			    tex.value='';
+			    myroad();
+			}
+		}
+//		读取
+		du.onclick=myroad;
+		function myroad(){
+			var txt=document.getElementById("txt");
+			var table='<table class="table"><tr><td class="td_1"></td><td class="td_2">key</td><td class="td_3">value</td></tr>';
+			for(var i=0;i<localStorage.length;i++){
+				var key=localStorage.key(i);
+			    var value=localStorage.getItem(key);
+				table+='<tr><th><input type="checkbox" name="ck"/></th><th>'+key+'</th><th>'+value+'</th></tr>';
+			}
+			table+="</table>";
+			txt.innerHTML=table;
+		}
+//		删除
+		san.onclick=function(){
+			var arr=document.getElementsByName("ck");
+			for(var i=0;i<arr.length;i++){
+				if(arr[i].checked){
+					var key=localStorage.key(i);
+					localStorage.removeItem(key);
+				}
+			}
+			myroad();
+		}
+//		修改
+		amend.onclick=function(){
+			var arr=document.getElementsByName("ck");
+			for(var i=0;i<arr.length;i++){
+				if(arr[i].checked){
+					var key=localStorage.key(i);
+					mykey.value=key;
+					var val=localStorage.getItem(key);
+					tex.value=val;
+				}
+		    }
+		}	
+//		清空
+		qing.onclick=function(){
+			localStorage.clear();
+			txt.innerHTML='';
+//			myroad();
+		}
+		
+	</script>
+</html>
