@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>修改密码</title>
+</head>
+<body>
+<h1>修改密码</h1>
+<h5>1. 获取验证码</h5>
+<h5>2.登录</h5>
+<h5>3.获取登录信息</h5>
+<h4>我的登录信息是：</h4>
+<p id="userInfo"></p>
+<input type="button" id="btn" value="获取登录信息">
+
+<form action="/VueHandler/AdminHandler?action=updatepass" method="post">
+    <p>旧密码： <input type="text" name="userPwd"></p>
+    <p>新密码： <input type="text" name="newPwd"></p>
+    <input type="submit" value="修改密码">
+</form>
+
+<script>
+    document.getElementById("btn").onclick=function(){
+        var xmlhttp=new XMLHttpRequest();
+        xmlhttp.open("post","/VueHandler/AdminHandler?action=returnuserinfo",true);
+        xmlhttp.send();
+        xmlhttp.onreadystatechange=function(){
+            if(xmlhttp.readyState==4 && xmlhttp.status==200){
+                document.getElementById("userInfo").innerHTML=xmlhttp.responseText;
+            }
+        }
+    }
+</script>
+</body>
+</html>

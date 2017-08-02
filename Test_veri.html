@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<div>验证码: <p id="veri"></p>
+    <input type="button" id="btn" value="获取验证码">
+</div>
+<form action="/VueHandler/AdminLoginAndRegHandler" method="get">
+    <input type="text" name="action" value="checkVerification">
+    <p>验证码: <input type="text" name="veri"></p>
+    <input type="submit" value="提交">
+</form>
+<script>
+    document.getElementById("btn").onclick=function(){
+        var xmlhttp=new XMLHttpRequest();
+        xmlhttp.open("GET","/VueHandler/AdminLoginAndRegHandler?action=verification",true);
+        xmlhttp.send();
+        xmlhttp.onreadystatechange=function(){
+            if(xmlhttp.readyState==4&& xmlhttp.status==200){
+                document.getElementById("veri").innerHTML=xmlhttp.responseText
+            }
+        }
+    }
+</script>
+</body>
+</html>
